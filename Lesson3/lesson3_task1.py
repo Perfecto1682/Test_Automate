@@ -1,0 +1,8 @@
+from Lesson3.User import User
+
+my_user = User("John", "Doe")
+
+
+my_user.print_first_name()
+my_user.print_last_name()
+my_user.print_full_name()
