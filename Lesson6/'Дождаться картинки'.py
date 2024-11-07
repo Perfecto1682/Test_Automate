@@ -25,20 +25,13 @@ try:
     )
     print("Текст изменился на 'Done!'")
 
-    # Поиск изображений
-    images = driver.find_elements(By.CSS_SELECTOR, '#image-container img')
-
-    # Проверяем, что загружены все 4 изображения
-    if len(images) == 4:
-        # Ищем изображение с id "award"
-        for image in images:
-            if image.get_attribute("id") == "award":
-                print("Изображение найдено:", image.get_attribute("src"))
-                break  # Выход из цикла после нахождения изображения с id "award"
-    else:
-        print("Недостаточно изображений. Ожидалось 4, но найдено:", len(images))
+    # Поиск изображения с ID "award"
+    try:
+        image = driver.find_element(By.CSS_SELECTOR, '#award')
+        print("Изображение найдено:", image.get_attribute("src"))
+    except:
+        print("Изображение с ID 'award' не найдено.")
 
 finally:
     # Закрыть драйвер
     driver.quit()
-
