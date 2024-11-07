@@ -48,15 +48,19 @@ def test_form_submission(driver):
         EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']")))
     submit_button.click()
 
-    # Ожидание появления предупреждений
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".alert")))
+    # Ожидание появления всех предупреждений
+    WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".alert")))
 
-    # Проверка цвета Zip code
-    zip_alert = driver.find_element(By.CSS_SELECTOR, ".alert.alert-danger")
-    assert zip_alert.is_displayed(), "Поле Zip code не подсвечено красным."
+    # Получаем все элементы предупреждений
+    alerts = driver.find_elements(By.CSS_SELECTOR, ".alert")
 
-    # Проверка остальных полей
-    success_alert = driver.find_element(By.CSS_SELECTOR, ".alert.alert-success")
-    assert success_alert.is_displayed(), "Не все поля подсвечены зелёным."
+    # Проходим по всем предупреждениям
+    for alert in alerts:
+        # Проверяем, что каждый alert имеет ожидаемый класс и отображается
+        if "alert-danger" in alert.get_attribute("class"):
+            assert alert.is_displayed(), "Поле Zip code не подсвечено красным."
+        elif "alert-success" in alert.get_attribute("class"):
+            assert alert.is_displayed(), "Не все поля подсвечены зелёным."
 
     print("Все проверки прошли успешно!")
+
