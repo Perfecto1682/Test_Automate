@@ -25,12 +25,13 @@ search_button.click()
 
 # Проверяем, что кнопка переименовалась
 try:
-    WebDriverWait(driver, 10).until(
+    # Увеличиваем время ожидания до 15 секунд
+    WebDriverWait(driver, 15).until(
         EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#updatingButton'), "SkyPro"))
     print("Кнопка была переименована успешно.")
 except TimeoutException:
     print("Кнопка не была переименована.")
 
-
 # Закрыть веб-драйвер
 driver.quit()
+
