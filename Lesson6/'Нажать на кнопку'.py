@@ -22,13 +22,22 @@ print("Кнопка нажата, ожидаем появление зелёно
 
 # Увеличиваем тайм-аут до 30 секунд для надежности
 try:
-    green_text_element = WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, 'p.bg-success'))
+    # Ожидаем, пока элемент не станет присутствовать в DOM
+    WebDriverWait(driver, 30).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, 'p.bg-success'))
     )
-    green_text = green_text_element.text
-    print("Зелёная плашка найдена:", green_text)
+
+    # Теперь проверяем, что элемент видим
+    green_text_element = driver.find_element(By.CSS_SELECTOR, 'p.bg-success')
+    if green_text_element.is_displayed():
+        green_text = green_text_element.text
+        print("Зелёная плашка найдена:", green_text)
+    else:
+        print("Зелёная плашка присутствует в DOM, но она не видна.")
+
 except TimeoutException:
     print("Не удалось найти зелёную плашку в течение времени ожидания.")
 
 # Закрыть браузер
 driver.quit()
+
