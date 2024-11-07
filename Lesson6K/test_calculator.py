@@ -48,4 +48,3 @@ def test_calculator(driver):
     except Exception as e:
         print("Ошибка при ожидании результата:", str(e))
         assert False  # Помечаем тест как неуспешный в случае ошибки
-
