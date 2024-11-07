@@ -63,4 +63,3 @@ def test_form_submission(driver):
             assert alert.is_displayed(), "Не все поля подсвечены зелёным."
 
     print("Все проверки прошли успешно!")
-

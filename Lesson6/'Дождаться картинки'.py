@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager  # Подключаем менеджер драйвера
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Запуск Chrome-драйвера с использованием Service и ChromeDriverManager
 service = Service(ChromeDriverManager().install())
@@ -29,7 +29,7 @@ try:
     try:
         image = driver.find_element(By.CSS_SELECTOR, '#award')
         print("Изображение найдено:", image.get_attribute("src"))
-    except:
+    except Exception:  # Используем более общий 'Exception' вместо конкретного исключения
         print("Изображение с ID 'award' не найдено.")
 
 finally:
