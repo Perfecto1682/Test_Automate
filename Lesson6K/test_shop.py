@@ -4,14 +4,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
-
-# Укажите путь к драйверу Chrome
-service = Service(executable_path=r'C:\Chromedriver\chromedriver.exe')
+from webdriver_manager.chrome import ChromeDriverManager  # Подключаем менеджер драйвера
 
 
 @pytest.fixture
 def driver():
-
+    # Запуск Chrome-драйвера с использованием ChromeDriverManager
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
     yield driver
     driver.quit()
@@ -28,7 +27,8 @@ def test_shop_purchase(driver):
 
     # Шаг 3: Добавление товаров в корзину
     WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[@data-test='add-to-cart-sauce-labs-backpack']"))).click()
+        EC.element_to_be_clickable((By.XPATH, "//button[@data-test='add-to-cart-sauce-labs-backpack']"))
+    ).click()
     driver.find_element(By.XPATH, "//button[@data-test='add-to-cart-sauce-labs-bolt-t-shirt']").click()
     driver.find_element(By.XPATH, "//button[@data-test='add-to-cart-sauce-labs-onesie']").click()
 

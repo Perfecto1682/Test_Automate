@@ -5,18 +5,13 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from webdriver_manager.firefox import GeckoDriverManager  # Подключаем менеджер драйвера
 
-# Указываем путь к исполняемому файлу Firefox
-firefox_binary_path = r"C:\Program Files\Mozilla Firefox\firefox.exe"  # Проверьте, что путь к Firefox верный
-
-# Настройка опций Firefox
+# Настройка опций Firefox (без явного указания пути к Firefox)
 options = Options()
-options.binary_location = firefox_binary_path
 
-# Путь к geckodriver для Firefox
-service = Service(executable_path=r'C:\Geckodriver\geckodriver.exe')
-
-# Запуск Firefox-драйвера с указанием пути к Firefox
+# Запуск Firefox-драйвера с использованием Service и GeckoDriverManager
+service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 
 # Шаг 1: Открытие страницы

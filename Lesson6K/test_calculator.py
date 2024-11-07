@@ -4,12 +4,13 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager  # Подключаем менеджер драйвера
 
 
 @pytest.fixture(scope="module")
 def driver():
-    # Путь до Chrome
-    service = Service(executable_path=r'C:\Chromedriver\chromedriver.exe')
+    # Запуск Chrome-драйвера с использованием ChromeDriverManager
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
     yield driver
     driver.quit()
@@ -47,3 +48,4 @@ def test_calculator(driver):
     except Exception as e:
         print("Ошибка при ожидании результата:", str(e))
         assert False  # Помечаем тест как неуспешный в случае ошибки
+

@@ -4,20 +4,19 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager  # Подключаем менеджер драйвера
 
 
 @pytest.fixture(scope="module")
 def driver():
-
-    # Путь до Chrome
-    service = Service(executable_path=r'C:\Chromedriver\chromedriver.exe')
+    # Запуск Chrome-драйвера с использованием ChromeDriverManager
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
     yield driver
     driver.quit()
 
 
 def test_form_submission(driver):
-
     # Открыть страницу
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
 
@@ -36,8 +35,7 @@ def test_form_submission(driver):
     driver.find_element(By.CSS_SELECTOR, "input[name='phone']").send_keys('+7985899998787')
 
     # Ждем появления поля zip-кода
-    WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='zip-code']")))  # Проверьте локатор
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='zip-code']")))
     driver.find_element(By.CSS_SELECTOR, "input[name='zip-code']").send_keys('')  # Оставляем пустым
 
     driver.find_element(By.CSS_SELECTOR, "input[name='city']").send_keys('Москва')

@@ -4,17 +4,13 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.firefox import GeckoDriverManager  # Подключаем менеджер драйвера
 
-# Укажите путь к Firefox и geckodriver
-firefox_binary_path = r"C:\Program Files\Mozilla Firefox\firefox.exe"  # Путь к Firefox
-geckodriver_path = r"C:\Geckodriver\geckodriver.exe"  # Путь к geckodriver
-
-# Настройка опций Firefox
+# Настройка опций Firefox (без указания пути к Firefox)
 options = Options()
-options.binary_location = firefox_binary_path
-service = Service(executable_path=geckodriver_path)
 
-# Запуск Firefox-драйвера
+# Запуск Firefox-драйвера с использованием Service и GeckoDriverManager
+service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 
 try:
