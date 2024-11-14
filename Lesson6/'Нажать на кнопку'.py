@@ -40,4 +40,3 @@ except TimeoutException:
 
 # Закрыть браузер
 driver.quit()
-
