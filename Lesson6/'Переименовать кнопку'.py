@@ -34,4 +34,3 @@ except TimeoutException:
 
 # Закрыть веб-драйвер
 driver.quit()
-
