@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from shop_page import ShopPage  # Импортируем класс страницы
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")  # Используем scope="module" для оптимизации
 def driver():
     # Запуск Chrome-драйвера с использованием ChromeDriverManager
     service = Service(ChromeDriverManager().install())
@@ -40,4 +40,7 @@ def test_shop_purchase(driver):
     total_value = shop_page.get_total_price()
 
     # Проверка итоговой суммы
-    assert total_value == "58.29", f"Expected total to be $58.29, but got ${total_value}"
+    assert total_value == "58.29", (
+        f"Expected total to be $58.29, but got ${total_value}. "
+        "Проверьте итоговую сумму в корзине."
+    )
