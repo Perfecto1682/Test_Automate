@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from form_page import FormPage  # Импортируем класс страницы
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module")  # Используем scope="module" для оптимизации
 def driver():
     # Запуск Chrome-драйвера с использованием ChromeDriverManager
     service = Service(ChromeDriverManager().install())
@@ -45,4 +45,7 @@ def test_form_submission(driver):
     alerts = form_page.get_alerts()
 
     # Проверяем предупреждения
-    form_page.check_alerts(alerts)
+    try:
+        form_page.check_alerts(alerts)
+    except AssertionError as e:
+        pytest.fail(f"Ошибка при проверке предупреждений: {str(e)}")

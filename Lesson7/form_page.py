@@ -36,10 +36,16 @@ class FormPage:
         submit_button.click()
 
     def wait_for_alerts(self):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".alert")))
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".alert"))
+        )
 
     def get_alerts(self):
-        return self.driver.find_elements(By.CSS_SELECTOR, ".alert")
+        # Используем WebDriverWait для повышения стабильности
+        alerts = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".alert"))
+        )
+        return alerts
 
     def check_alerts(self, alerts):
         for alert in alerts:
