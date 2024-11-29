@@ -20,7 +20,7 @@ class ProjectsAPI:
         }
 
     def create_project(self, payload):
-        """Создать проект."""
+        """Создать проект"""
         url = f"{self.BASE_URL}/projects"
         return requests.post(url, json=payload, headers=self.headers)
 
