@@ -20,12 +20,12 @@ class ProjectsAPI:
         }
 
     def create_project(self, payload):
-        """Создать проект."""
+        """Создать проект"""
         url = f"{self.BASE_URL}/projects"
         return requests.post(url, json=payload, headers=self.headers)
 
     def get_all_projects(self):
-        """Получить все проекты."""
+        """Получить все проекты"""
         url = f"{self.BASE_URL}/projects"
         return requests.get(url, headers=self.headers)
 
