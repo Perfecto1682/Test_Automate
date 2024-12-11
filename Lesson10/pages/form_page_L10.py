@@ -55,3 +55,7 @@ class FormPage:
                 assert alert.is_displayed(), "Поле Zip code не подсвечено красным."
             elif "alert-success" in alert.get_attribute("class"):
                 assert alert.is_displayed(), "Не все поля подсвечены зелёным."
+
+    @allure.step('Получение всех предупреждений на странице')
+    def get_alerts(self):
+        return self.driver.find_elements(By.CSS_SELECTOR, ".alert")
